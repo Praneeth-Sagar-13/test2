@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 
 // Connect to MongoDB
 const connect = mongoose.connect('mongodb://localhost:27017/users-data', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+    // useNewUrlParser and useUnifiedTopology are no longer needed in mongoose v6+
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true
 });
 
 connect.then(() => {
@@ -24,7 +25,11 @@ connect.then(() => {
     // Define the model
     const User = mongoose.model('User', LoginSchema);
 
-    
+    // Create a new user instance
+    const newUser = new User({
+        name: 'exampleUser',
+        password: 'examplePassword'
+    });
 
     // Save the new user document to the database
     newUser.save()
