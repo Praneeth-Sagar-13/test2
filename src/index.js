@@ -27,6 +27,14 @@ app.post("/signup",async (req,res)=>{
 
     }
 
+    //check if username exist
+    const existusername= await  collection.findOne({name: data.name});
+
+    if(existingUser){
+        alert("username already exist");
+    }
+
+
     const userdata= await collection.insertMany(data);
     console.log(userdata);
 
