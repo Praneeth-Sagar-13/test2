@@ -42,6 +42,8 @@ app.post("/signup",async (req,res)=>{
         data.password=hashPassword;
         const userdata= await collection.insertMany(data);
         console.log(userdata);
+
+        res.send("go to login page")
     
 
     }
