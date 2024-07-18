@@ -31,17 +31,57 @@ app.post("/signup",async (req,res)=>{
     const existusername= await  collection.findOne({name: data.name});
 
     if(existusername){
-        alert("username already exist");
+        res.send("user already exists");
+    }
+
+    else{
+
+        const saltrounds=10;
+        const hashPassword= await bcrypt.hash(data.password,saltrounds);
+
+        data.password=hashPassword;
+        const userdata= await collection.insertMany(data);
+        console.log(userdata);
+    
+
     }
 
 
-    const userdata= await collection.insertMany(data);
-    console.log(userdata);
 
 
 })
 
-    
+
+app.post("/login",async (req,res)=>{
+
+    try{
+
+        const check= await collection.findOne({name: req.body.username});
+        if(!check){
+            res.send("user not found");
+        }
+
+        const ispasswordcorrect=await bcrypt.compare(req.body.password,check.password);
+        if(ispasswordcorrect){
+            res.render("home");
+        }
+        else{
+            res.send("Wrong password");
+
+        }
+
+
+
+    }
+    catch{
+
+        res.send("wrong details");
+
+
+
+    }
+
+})
 
 app.get("/signup",(req,res)=>{
     res.render("signup");
