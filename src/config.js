@@ -7,8 +7,15 @@ const connect = mongoose.connect('mongodb://localhost:27017/users-data');
 connect.then(() => {
     console.log('Database connected successfully');
 
+
+}).catch(err => {
+    console.error('Database connection failed:', err);
+});
+
+
+
     // Define the schema
-    const LoginSchema = new mongoose.Schema({
+const LoginSchema = new mongoose.Schema({
         name: {
             type: String,
             required: true
@@ -23,9 +30,5 @@ connect.then(() => {
     const collection = mongoose.model('User', LoginSchema);
 
     module.exports=collection;
-
-}).catch(err => {
-    console.error('Database connection failed:', err);
-});
 
 
