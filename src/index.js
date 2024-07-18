@@ -22,8 +22,8 @@ app.post("/signup",async (req,res)=>{
 
     const data={
         name: req.body.username,
-        password: req.body.password,
-        checkpassword:req.body.password2
+        password: req.body.password
+        
 
     }
 
