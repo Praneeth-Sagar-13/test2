@@ -6,6 +6,9 @@ const collection=require("./config")
 
 const app=express();
 
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+
 app.set('view engine','ejs');
 
 app.use(express.static("public"));
@@ -15,7 +18,20 @@ app.get("/",(req,res)=>{
 res.render("login");
 })
 
+app.post("/signup",async (req,res)=>{
 
+    const data={
+        name: req.body.username,
+        password: req.body.password,
+        checkpassword:req.body.password2
+
+    }
+
+    const userdata= await collection.insertMany(data);
+    console.log(userdata);
+
+
+})
 
     
 
