@@ -30,7 +30,7 @@ app.post("/signup",async (req,res)=>{
     //check if username exist
     const existusername= await  collection.findOne({name: data.name});
 
-    if(existingUser){
+    if(existusername){
         alert("username already exist");
     }
 
