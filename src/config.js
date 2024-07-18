@@ -22,8 +22,10 @@ connect.then(() => {
     // Define the model
     const collection = mongoose.model('User', LoginSchema);
 
+    module.exports=collection;
+
 }).catch(err => {
     console.error('Database connection failed:', err);
 });
 
-module.exports=collection;
+
