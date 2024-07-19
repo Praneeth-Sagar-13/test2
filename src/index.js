@@ -55,36 +55,25 @@ app.post("/signup",async (req,res)=>{
 })
 
 
-app.post("/login",async (req,res)=>{
-
-    try{
-
-        const check= await collection.findOne({name: req.body.username});
-        if(!check){
-            res.status(511).json({ message: "user not found" });
+app.post("/login", async (req, res) => {
+    try {
+        const check = await collection.findOne({ name: req.body.username });
+        if (!check) {
+            return res.status(404).json({ message: "User not found" });
         }
 
-        const ispasswordcorrect=await bcrypt.compare(req.body.password,check.password);
-        if(ispasswordcorrect){
-            res.status(200).json({ message: "Login successful", redirect: "/home" });
+        const isPasswordCorrect = await bcrypt.compare(req.body.password, check.password);
+        if (isPasswordCorrect) {
+            return res.status(200).json({ message: "Login successful", redirect: "/home" });
+        } else {
+            return res.status(401).json({ message: "Wrong password" });
         }
-        else{
-            res.status(321).json({ message: "Wrong password" });
-
-        }
-
-
-
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({ message: "An unexpected error occurred" });
     }
-    catch{
+});
 
-        res.status(500).json({ message: "An unexpected error occurred" });
-
-
-
-    }
-
-})
 
 app.get("/signup",(req,res)=>{
     res.render("signup");
