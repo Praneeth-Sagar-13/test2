@@ -6,62 +6,54 @@
     <title>SignUp</title>
     <link rel="stylesheet" href="/style.css">
 
-
-
-
     <script>
         async function handleSignup(event) {
             event.preventDefault();
 
-            const username = document.getElementById('username').value;
+            const username = document.getElementById('name').value;
             const password = document.getElementById('password').value;
 
-            const response = await fetch('/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            });
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
 
-            const result = await response.json();
+                const result = await response.json();
 
-            if (response.status === 409) {
-                alert(result.message);
-            } else if (response.status === 200) {
-                alert(result.message);
-                window.location.href = '/login';  // Redirect to login page
-            } else {
-                alert('An unexpected error occurred');
+                if (response.status === 409) {
+                    alert(result.message);
+                } else if (response.status === 200) {
+                    alert(result.message);
+                    window.location.href = '/login';  // Redirect to login page
+                } else {
+                    alert('An unexpected error occurred');
+                }
+            } catch (error) {
+                alert('An error occurred while processing your request.');
+                console.error('Error:', error);
             }
         }
     </script>
 </head>
 <body>
-
     <div class="form-container">
         <h2>SignUp</h2>
-        <form action="/signup" method="post" onsubmit="handleSignup(event)">
-            <div class="form-group" >
+        <form onsubmit="handleSignup(event)">
+            <div class="form-group">
                 <label for="name" class="pass">Name:</label>
                 <input type="text" id="name" name="username" placeholder="Enter your name" required autocomplete="off">
-
             </div>
             <div class="form-group">
                 <label for="password" class="pass">Password:</label>
                 <input type="password" name="password" id="password" placeholder="password" required>
-
             </div>
-            <!-- <div class="form-group">
-                <label for="Re-Enter password" class="pass">Re-Enter Password:</label>
-                <input type="password" name="password2" id="password2" placeholder="Re-Enter Password" required>
-
-            </div> -->
             <button type="submit" class="submit-btn">SignUp</button>
-
         </form>
-        <p>have account already <a href="/">Login</a></p>
+        <p>Have an account already? <a href="/">Login</a></p>
     </div>
-    
 </body>
 </html>
