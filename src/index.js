@@ -75,6 +75,7 @@ app.post("/login", async (req, res) => {
 });
 
 
+
 app.get("/signup",(req,res)=>{
     res.render("signup");
     })

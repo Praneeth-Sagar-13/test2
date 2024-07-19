@@ -22,8 +22,6 @@
                     body: JSON.stringify({ username, password })
                 });
 
-                const result = await response.json();
-
                 if (response.status === 404 || response.status === 401) {
                     const result = await response.json();
                     alert(result.message);
