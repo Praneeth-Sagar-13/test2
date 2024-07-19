@@ -43,7 +43,7 @@ app.post("/signup",async (req,res)=>{
         const userdata= await collection.insertMany(data);
         console.log(userdata);
 
-        res.send("go to login page")
+        res.status(200).json({ message: "Go to login page" });
     
 
     }
