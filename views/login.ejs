@@ -30,10 +30,11 @@
                    
                     setTimeout(() => {
                         alert(result.message);
+                        window.location.href = result.redirect;
                           
-                    }, 5000); 
+                    }, 2500); 
                     
-                    window.location.href = result.redirect;// Redirect to home page
+                   // Redirect to home page
                 } else {
                     alert('An unexpected error occurred');
                 }
