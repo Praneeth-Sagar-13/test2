@@ -31,7 +31,7 @@ app.post("/signup",async (req,res)=>{
     const existusername= await  collection.findOne({name: data.name});
 
     if(existusername){
-        res.send("user already exists");
+        res.status(409).json({ message: "User already exists" });
     }
 
     else{
