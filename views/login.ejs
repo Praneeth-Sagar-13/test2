@@ -5,10 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <link rel="stylesheet" href="/style.css">
+
+    <script>
+        async function handleSignup(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('name').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const result = await response.json();
+
+                if (response.status === 511) {
+                    alert(result.message);
+                } else if (response.status === 321) {
+                    alert(result.message);
+                    
+                } else {
+                    alert('An unexpected error occurred');
+                }
+            } catch (error) {
+                alert('An error occurred while processing your request.');
+                console.error('Error:', error);
+            }
+        }
+    </script>
+
+
+
 </head>
 <body>
 
-    <div class="form-container">
+    <div class="form-container" onsubmit="handleSignup(event)">
         <h2>Login</h2>
         <form action="/login" method="post">
             <div class="form-group" >

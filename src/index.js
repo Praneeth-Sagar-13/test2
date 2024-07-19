@@ -18,9 +18,6 @@ app.get("/",(req,res)=>{
 res.render("login");
 })
 
-app.get("/login",(req,res)=>{
-    res.render("login");
-    })
 
 app.post("/signup",async (req,res)=>{
 
@@ -64,7 +61,7 @@ app.post("/login",async (req,res)=>{
 
         const check= await collection.findOne({name: req.body.username});
         if(!check){
-            res.send("user not found");
+            res.status(511).json({ message: "user not found" });
         }
 
         const ispasswordcorrect=await bcrypt.compare(req.body.password,check.password);
@@ -72,7 +69,7 @@ app.post("/login",async (req,res)=>{
             res.render("home");
         }
         else{
-            res.send("Wrong password");
+            res.status(321).json({ message: "wrong password" });
 
         }
 
