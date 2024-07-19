@@ -66,10 +66,10 @@ app.post("/login",async (req,res)=>{
 
         const ispasswordcorrect=await bcrypt.compare(req.body.password,check.password);
         if(ispasswordcorrect){
-            res.render("home");
+            res.status(200).json({ message: "Login successful", redirect: "/home" });
         }
         else{
-            res.status(321).json({ message: "wrong password" });
+            res.status(321).json({ message: "Wrong password" });
 
         }
 
@@ -78,7 +78,7 @@ app.post("/login",async (req,res)=>{
     }
     catch{
 
-        res.send("wrong details");
+        res.status(500).json({ message: "An unexpected error occurred" });
 
 
 
