@@ -26,10 +26,11 @@
                     const result = await response.json();
                     alert(result.message);
                 } else if (response.status === 200) {
-                    // const result = await response.json();
-                    // alert(result.message);
-                    pass;
-                    // window.location.href = result.redirect;  // Redirect to home page
+                    const result = await response.json();
+                    alert(result.message);
+                    setTimeout(() => {
+                        window.location.href = result.redirect;  // Redirect to home page
+                    }, 1000);  // Redirect to home page
                 } else {
                     alert('An unexpected error occurred');
                 }
