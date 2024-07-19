@@ -64,7 +64,7 @@ app.post("/login", async (req, res) => {
 
         const isPasswordCorrect = await bcrypt.compare(req.body.password, check.password);
         if (isPasswordCorrect) {
-            return res.status(200).json({ message: "Login successful" });
+            return res.status(200).json({ message: "Login successful", redirect:"/home" });
             
         } else {
             return res.status(401).json({ message: "Wrong password" });
