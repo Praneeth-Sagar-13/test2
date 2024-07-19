@@ -27,9 +27,13 @@
                     alert(result.message);
                 } else if (response.status === 200) {
                     const result = await response.json();
+                   
+                    setTimeout(() => {
+                        alert(result.message);
+                          // Redirect to home page
+                    }, 1000); 
                     
-                        window.location.href = result.redirect;  // Redirect to home page
-                    // Redirect to home page
+                    window.location.href = result.redirect;// Redirect to home page
                 } else {
                     alert('An unexpected error occurred');
                 }
