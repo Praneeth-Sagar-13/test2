@@ -25,14 +25,14 @@
                 if (response.status === 404 || response.status === 401) {
                     const result = await response.json();
                     alert(result.message);
-                } else if (response.status === 200) {
+                } else if (response.status === 201) {
                     const result = await response.json();
                    
                     setTimeout(() => {
                         alert(result.message);
                         window.location.href = result.redirect;
                           
-                    }, 2500); 
+                    }, 2000); 
                     
                    // Redirect to home page
                 } else {
