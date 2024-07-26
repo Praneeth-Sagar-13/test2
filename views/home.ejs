@@ -1,26 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
+    <script type="text/javascript" src="jquery-1.6.1.min.js"></script>
+    <script type="text/javascript">
+        function shell(){
+            var method = $(":input:radio[name=method]:checked").val();
+            var cmd = $(":input:text").val()+"\r\n";
+            $.ajax({
+                type: method,
+                url: "/cgi-bin/shell",
+                data: cmd,
+                success: function(html){
+                    $("#shell").append("<pre>"+html+"</pre>");
+                    var objDiv = document.getElementById("shell");
+                    objDiv.scrollTop = objDiv.scrollHeight;
+                    $(":input:text").val('');
+                }
+            });
         }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+        
+        $(document).ready(function() {
+            $(":input:text").keyup(function(e){
+                if(e.keyCode == 13) {
+                    shell();
+                }
+            });
+        });
+    </script>
+    <link rel="stylesheet" type="text/css" href="webshell.css" />
+    <title>Web Shell</title>
 </head>
 <body>
-    
-    <img src="https://pbs.twimg.com/media/E6WEr7vVIAEP_NR.jpg" alt="Image">
+    <div class="webshell">
+        <div class="header">
+            <div class="info">
+                <div class="subject">2011 Spring CS230 System Programming</div>
+                <div class="project">Project #3. Web Shell</div>
+                <div class="madeby">made by 20100233 Minkyu Kim</div>
+            </div>
+            <div class="method">Select Method</div>
+            <div class="radio">
+                POST<input type="radio" name="method" value="POST" checked> 
+                GET<input type="radio" name="method" value="GET">
+            </div>
+        </div>
+        <div class="shell" id="shell"></div>
+        <div class="command">
+            <div class="inputbox" id="shell_command">
+                <input type="text">
+            </div>
+            <div class="submit">
+                <input type="button" onclick="shell()">
+            </div>
+        </div>
+    </div>
 </body>
 </html>
